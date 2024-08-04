@@ -285,17 +285,17 @@ Game.prototype.display = function () {
 // Spiel initialisieren und starten
 window.onload = function () {
   var sprites = {
-    bird: "./img/bird.png",
-    background: "./img/background.png",
-    pipetop: "./img/pipetop.png",
-    pipebottom: "./img/pipebottom.png",
+    bird: "/bird.png",
+    background: "/background.png",
+    pipetop: "/pipetop.png",
+    pipebottom: "/pipebottom.png",
   };
 
   var soundsSrc = {
-    flap: "./sounds/flap.wav",
-    score: "./sounds/score.wav",
-    hit: "./sounds/hit.wav",
-    backgroundMusic: "./sounds/background.mp3",
+    flap: "./flap.wav",
+    score: "./score.wav",
+    hit: "./hit.wav",
+    backgroundMusic: "./background.mp3",
   };
 
   loadImages(sprites, function (imgs) {
