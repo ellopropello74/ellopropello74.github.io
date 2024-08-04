@@ -18,6 +18,12 @@ html {
 /* Styling für das Canvas-Element */
 canvas {
   border: 2px solid #000;
+  width: 100%;
+  height: auto;
+  max-height: 100vh;
+  aspect-ratio: 6 / 9;
+  /* Fallback für Browser ohne Support für aspect-ratio */
+  display: block;
 }
 
 /* Styling für den Restart-Button */
