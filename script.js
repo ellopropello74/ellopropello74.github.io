@@ -1,4 +1,4 @@
-var FPS = 60
+var FPS = 60;
 // Ressourcen
 var images = {};
 var sounds = {};
@@ -118,6 +118,9 @@ var Game = function () {
   this.bird = new Bird();
   this.score = 0;
   this.highScore = localStorage.getItem("highScore") || 0;
+  this.totalPlayTime = 0;
+  this.totalPlayTimeOverall =
+    parseFloat(localStorage.getItem("totalPlayTimeOverall")) || 0;
   this.canvas = document.querySelector("#flappy");
   this.ctx = this.canvas.getContext("2d");
   this.width = this.canvas.width;
@@ -129,6 +132,7 @@ var Game = function () {
   this.restartButton = document.querySelector(".restart");
   this.updateTimeout = null;
   this.displayAnimationFrame = null;
+  this.startTime = null;
 
   var self = this;
   this.restartButton.onclick = function () {
@@ -139,8 +143,10 @@ var Game = function () {
 Game.prototype.start = function () {
   this.interval = 0;
   this.score = 0;
-  this.pipes = [];
+  this.totalPlayTime = 0;
   this.bird = new Bird();
+  this.pipes = [];
+  this.startTime = Date.now();
   this.restartButton.style.display = "none";
   clearTimeout(this.updateTimeout);
   cancelAnimationFrame(this.displayAnimationFrame);
@@ -154,10 +160,17 @@ Game.prototype.start = function () {
 
 Game.prototype.gameOver = function () {
   console.log("Game over");
+  this.totalPlayTime = (Date.now() - this.startTime) / 1000; // Spielzeit in Sekunden
+
   if (this.score > this.highScore) {
     this.highScore = this.score;
     localStorage.setItem("highScore", this.highScore);
   }
+
+  // Gesamtspielzeit aktualisieren
+  this.totalPlayTimeOverall += this.totalPlayTime / 3600; // Spielzeit in Stunden
+  localStorage.setItem("totalPlayTimeOverall", this.totalPlayTimeOverall);
+
   this.restartButton.style.display = "block";
   if (sounds.backgroundMusic) {
     sounds.backgroundMusic.pause();
@@ -221,6 +234,8 @@ Game.prototype.update = function () {
 
 Game.prototype.display = function () {
   this.ctx.clearRect(0, 0, this.width, this.height);
+
+  // Hintergrund zeichnen
   for (
     var i = 0;
     i < Math.ceil(this.width / images.background.width) + 1;
@@ -234,6 +249,7 @@ Game.prototype.display = function () {
     );
   }
 
+  // Rohre zeichnen
   for (var i = 0; i < this.pipes.length; i++) {
     if (i % 2 === 0) {
       this.ctx.drawImage(
@@ -254,6 +270,7 @@ Game.prototype.display = function () {
     }
   }
 
+  // Vogel zeichnen
   if (this.bird.alive) {
     this.ctx.save();
     this.ctx.translate(
@@ -271,10 +288,16 @@ Game.prototype.display = function () {
     this.ctx.restore();
   }
 
+  // Punktestand und Gesamtspielzeit anzeigen
   this.ctx.fillStyle = "white";
   this.ctx.font = "20px Oswald, sans-serif";
-  this.ctx.fillText("Score : " + this.score, 10, 25);
-  this.ctx.fillText("High Score : " + this.highScore, 10, 50);
+  this.ctx.fillText("Score: " + this.score, 10, 25);
+  this.ctx.fillText("High Score: " + this.highScore, 10, 50);
+  this.ctx.fillText(
+    "Total Play Time: " + this.totalPlayTimeOverall.toFixed(2) + " h",
+    10,
+    75
+  );
 
   var self = this;
   this.displayAnimationFrame = requestAnimationFrame(function () {
@@ -317,5 +340,3 @@ window.onload = function () {
     });
   });
 };
-
-// Stylesheet
