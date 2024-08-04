@@ -13,6 +13,13 @@ html {
 
 .game-container {
   position: relative;
+  width: 100%;
+  max-width: 100vw;
+  height: 100%;
+  max-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Styling für das Canvas-Element */
@@ -22,8 +29,9 @@ canvas {
   height: auto;
   max-height: 100vh;
   aspect-ratio: 6 / 9;
-  /* Fallback für Browser ohne Support für aspect-ratio */
   display: block;
+  /* Optional: Für ältere Browser, die aspect-ratio nicht unterstützen */
+  /* object-fit: contain; */
 }
 
 /* Styling für den Restart-Button */
