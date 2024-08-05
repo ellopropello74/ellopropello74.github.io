@@ -9,27 +9,25 @@ html {
   height: 100vh;
   background-color: #84c3cf;
   font-family: "Oswald", sans-serif;
+  touch-action: manipulation; /* Verhindert Doppelklick-Zoom */
 }
 
-/* Styling für den Spiel-Container */
 .game-container {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw; /* Passt sich der Breite des Viewports an */
-  height: 100vh; /* Passt sich der Höhe des Viewports an */
+  width: 100vw;
+  height: 100vh;
 }
 
-/* Styling für das Canvas-Element */
 canvas {
   border: 2px solid #000;
-  width: 100vw; /* Passt sich der Breite des Viewports an */
-  height: 100vh; /* Passt sich der Höhe des Viewports an */
+  width: 100vw;
+  height: 100vh;
   display: block;
 }
 
-/* Styling für den Restart-Button */
 .restart {
   background: none;
   border: none;
@@ -39,28 +37,27 @@ canvas {
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
-  display: none; /* Startet versteckt */
+  display: none;
 }
 
 .restart img {
-  width: auto; /* Breite proportional zur Höhe */
-  height: 25vh; /* 25% der Viewport-Höhe */
+  width: auto;
+  height: 25vh;
 }
 
-/* Media Query für Querformat */
 @media screen and (orientation: landscape) {
   .game-container {
-    width: 540px; /* Feste Breite im Querformat */
-    height: 960px; /* Feste Höhe im Querformat */
+    width: 540px;
+    height: 960px;
   }
 
   canvas {
-    width: 540px; /* Feste Breite im Querformat */
-    height: 960px; /* Feste Höhe im Querformat */
+    width: 540px;
+    height: 960px;
   }
 
   .restart img {
-    height: 135px; /* Ein Viertel von 1080px */
-    width: auto;   /* Breite proportional zur Höhe */
+    height: 135px;
+    width: auto;
   }
 }
