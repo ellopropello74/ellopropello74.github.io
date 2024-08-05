@@ -294,7 +294,7 @@ Game.prototype.display = function () {
   this.ctx.fillText("Score: " + this.score, 10, 25);
   this.ctx.fillText("High Score: " + this.highScore, 10, 50);
   this.ctx.fillText(
-    "Total Play Time: " + this.totalPlayTimeOverall.toFixed(2) + " h",
+    "Total Play Time: " + this.totalPlayTimeOverall.toFixed(2) + " hrs",
     10,
     75
   );
